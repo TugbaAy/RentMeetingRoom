@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.ServletContext;
 import java.io.File;
 import java.io.FileInputStream;
@@ -25,7 +26,7 @@ public class FileController {
     @Autowired
     private ServletContext servletContext;
 
-    private final static String BASE_PATH = "C:/photos/";
+    private final static String BASE_PATH = "photos/";
 
     @RequestMapping("/resources")
     public ResponseEntity<InputStreamResource> downloadFile(@RequestParam(value = "fileName") String fileName) throws IOException {
@@ -61,6 +62,24 @@ public class FileController {
         Files.write(path, bytes);
         return companyImageName;
 
+    }
+
+    @PostConstruct
+    public void writePath() {
+        createFolder("photos");
+    }
+
+    public void createFolder(String folderName) {
+        File file = new File(System.getProperty("user.dir") + "/" + folderName);
+        boolean fileExists = file.exists();
+        if (!fileExists) {
+            boolean dirCreated = file.mkdir();
+            if (dirCreated) {
+                System.out.println("folder created");
+            } else {
+                System.out.println("error");
+            }
+        }
     }
 
 }
