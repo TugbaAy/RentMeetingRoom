@@ -49,6 +49,14 @@ public class Company implements Serializable {
     private String companyName;
 
     @Column
+    @NotNull
+    @NotEmpty(message = "The password cannot be empty")
+    @Size(min = 5, max = 25, message
+            = "About Me must be between 5 and 25 characters")
+    @ApiModelProperty(notes = "The password")
+    private String password;
+
+    @Column
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm", timezone = "Europe/Istanbul")
     @Temporal(TemporalType.DATE)
     private Date insertDate;

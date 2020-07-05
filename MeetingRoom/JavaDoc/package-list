@@ -1,0 +1,8 @@
+com.demo.MeetingRoom
+com.demo.MeetingRoom.config
+com.demo.MeetingRoom.controller
+com.demo.MeetingRoom.exceptions
+com.demo.MeetingRoom.model
+com.demo.MeetingRoom.operations
+com.demo.MeetingRoom.repository
+com.demo.MeetingRoom.service

@@ -14,7 +14,6 @@ import java.io.IOException;
 import java.util.*;
 
 /**
- *
  * This service control the CRUD operations of the Reservations
  *
  * @author tugbaay
@@ -54,14 +53,13 @@ public class ReservationService {
     /**
      * This method save the reservation.
      *
-     * @param companyId Company id
-     * @param roomId Meeting Hall id
+     * @param companyId            Company id
+     * @param roomId               Meeting Hall id
      * @param reservedDate
      * @param reservationStartTime
      * @param reservationEndTime
      * @return Reservation
      */
-
     public Reservation save(String companyId,
                             String roomId,
                             String reservedDate,
@@ -117,12 +115,22 @@ public class ReservationService {
         }
 
         if (roomsList.isEmpty()) {
-            throw new RecordNotFoundException("This meeting room’s capacity restricted " +capacity +" people");
+            throw new RecordNotFoundException("This meeting room’s capacity restricted " + capacity + " people");
         }
 
         return roomsList;
     }
 
+    /**
+     * This method checks whether the meeting room is booked.
+     *
+     * @param reservationStartTime
+     * @param reservationEndTime
+     * @param meetingHall
+     * @param company
+     * @param reservedDate
+     * @return Reservation
+     */
     public Reservation checkAvailability(Company company,
                                          MeetingHall meetingHall,
                                          String reservedDate,
@@ -156,13 +164,19 @@ public class ReservationService {
                 }
                 return reservation;
             } else {
-                throw new RecordNotFoundException("Meeting room has been reserved. Please try for other times”");
+                throw new RecordNotFoundException("Meeting room has been reserved. Please try for other times");
             }
         }
-
-
     }
 
+    /**
+     * This method the reservation checks the working hours of the meeting room requested.
+     *
+     * @param reservationStartTime
+     * @param reservationEndTime
+     * @param meetingHall
+     * @return void
+     */
     public void checkTime(String reservationStartTime, String reservationEndTime, MeetingHall meetingHall) {
         List<MeetingHallWorkingTime> meetingHallWorkingTimeList = meetingHallWorkingTimeRepository.findByMeetingHalls(meetingHall.getId());
 
@@ -170,7 +184,7 @@ public class ReservationService {
         int count = 0;
         for (int i = Integer.valueOf(reservationStartTime.split(":")[0]); i < Integer.valueOf(reservationEndTime.split(":")[0]); i++) {
             for (MeetingHallWorkingTime meetingHallWorkingTime : meetingHallWorkingTimeList) {
-                boolean a = new FindHour().getTimes(meetingHallWorkingTime, i);
+                boolean a = FindHour.getTimes(meetingHallWorkingTime, i);
                 if (a) {
                     count++;
                     break;
@@ -179,10 +193,17 @@ public class ReservationService {
             }
         }
         if (!(count == total)) {
-            throw new NoMeetingRoom("Meeting room has been reserved. Please try for other times”");
+            throw new NoMeetingRoom("Meeting room has been reserved. Please try for other times");
         }
     }
 
+    /**
+     * This method checks whether the start time is greater than the end time.
+     *
+     * @param reservationStartTime
+     * @param reservationEndTime
+     * @return void
+     */
     public void checkIsNegative(String reservationStartTime, String reservationEndTime) {
         if ((Integer.valueOf(reservationStartTime.split(":")[0].trim()) - Integer.valueOf(reservationEndTime.split(":")[0].trim())) > 0 ||
                 (Integer.valueOf(reservationStartTime.split(":")[0].trim()) - Integer.valueOf(reservationEndTime.split(":")[0].trim())) == 0) {
@@ -190,6 +211,14 @@ public class ReservationService {
         }
     }
 
+    /**
+     * This method list all reservations.
+     *
+     * @return List<Reservation>
+     */
+    public List<Reservation> findAll() {
+        return reservationRepository.findAll();
+    }
 }
 
 

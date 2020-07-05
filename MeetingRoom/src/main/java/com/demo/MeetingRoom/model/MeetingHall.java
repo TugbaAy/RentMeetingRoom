@@ -76,9 +76,6 @@ public class MeetingHall implements Serializable {
     private boolean isActive;
 
     @Column
-    private boolean theLastState;
-
-    @Column
     @Pattern(
             regexp = "([01]?[0-9]|2[0-3]):[0][0]",
             message = "Only hourly acceptable. For example : 12:00,13:00,14:00.."

@@ -92,4 +92,15 @@ public class ReservationController {
             }
         }
     }
+
+    @ApiOperation(value = "Find all reservations")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully retrieved list"),
+            @ApiResponse(code = 204, message = "No content available")})
+    @GetMapping("/findAll")
+    public ResponseEntity findAllReservation() {
+        return new ResponseEntity<>(reservationService.findAll(), HttpStatus.OK);
+    }
+
+
 }

@@ -82,7 +82,7 @@ public class FindHour {
 
     }
 
-    public boolean getTimes(MeetingHallWorkingTime meetingHallWorkingTime, int hour) {
+    public static boolean getTimes(MeetingHallWorkingTime meetingHallWorkingTime, int hour) {
         boolean value = false;
         switch (hour) {
             case 0:

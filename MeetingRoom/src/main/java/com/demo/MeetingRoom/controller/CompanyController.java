@@ -46,6 +46,7 @@ public class CompanyController {
                     "{\n" +
                     "    \"companyName\":\"xxxx\",\n" +
                     "    \"companyEmail\":\"xxx\",\n" +
+                    "    \"pasword\":\"xxx\",\n" +
                     "    \"cityOfCompany\":\"xxx\",\n" +
                     "    \"numberOfEmployees\":xxx\n" +
                     "}", required = true)
@@ -87,7 +88,7 @@ public class CompanyController {
             @ApiResponse(code = 204, message = "No content available")})
     @GetMapping(value = "/findByNameifActive")
     public ResponseEntity findByCompanyNameifActive(
-            @ApiParam(value = "company id to find company object", required = true)
+            @ApiParam(value = "company name to find company object", required = true)
             @RequestParam("companyName") String companyName) {
         return new ResponseEntity(companyService.findByCompanyNameifActive(companyName), HttpStatus.OK);
     }

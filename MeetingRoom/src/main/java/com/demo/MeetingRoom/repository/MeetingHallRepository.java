@@ -22,7 +22,7 @@ public interface MeetingHallRepository extends JpaRepository<MeetingHall, String
     @Query("SELECT u FROM MeetingHall u WHERE u.capacity >= ?1 and u.isActive=true order by u.capacity ASC")
     public List<MeetingHall> findByCapacityAndActive(int capacity);
 
-    @Query("SELECT u FROM MeetingHall u WHERE u.timeReservedStart = ?1 and u.timeReservedEnd = ?2  and u.isActive=true and u.theLastState = true")
+    @Query("SELECT u FROM MeetingHall u WHERE u.timeReservedStart = ?1 and u.timeReservedEnd = ?2  and u.isActive=true")
     public List<MeetingHall> findByTimeReservedStartAndTimeReservedEnd(String timeReservedStart, String timeReservedEnd);
 
     @Query("SELECT u FROM MeetingHall u WHERE u.meetingRoomName = ?1 and u.isActive=true")
@@ -33,6 +33,4 @@ public interface MeetingHallRepository extends JpaRepository<MeetingHall, String
 
     @Query("select m from MeetingHall m where m.isActive = false")
     public List<MeetingHall> findAllByPassive();
-
-
 }

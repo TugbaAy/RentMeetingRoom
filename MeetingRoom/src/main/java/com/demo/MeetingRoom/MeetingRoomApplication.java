@@ -7,8 +7,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
-//@ComponentScan({"com.demo.MeetingRoom.controller",
-  //      "com.demo.MeetingRoom.service"})
+@ComponentScan({"com.demo.MeetingRoom.controller",
+        "com.demo.MeetingRoom.service"})
 @EnableJpaRepositories("com.demo.MeetingRoom.repository")
 @EnableSwagger2
 public class MeetingRoomApplication {
